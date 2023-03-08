@@ -129,31 +129,11 @@ public class BigNaturals extends CommandLineProgram {
 
     public int arrayToInt(int[] num){
         int[] decrement = copy(num);
-        int i=0;
         int sum=0;
-        while(!equals(decrement,zero())) {
-            if (decrement[i] != 0){
-                decrement[i] -= 1;
-                sum++;
-            }else if(decrement[i + 1] != 0) {
-                for(int j=0;j<=i;j++) {
-                    decrement[j] = 9;
-                }
-                decrement[i + 1] -= 1;
-                if(i!=0) {
-                    i--;
-                }
-                sum++;
-            }else{
-                i++;
-            }
-            if(decrement[decrement.length-1]==0 && decrement[0]!=0){
-                int[] num_new = new int[decrement.length-1];
-                for (int k = 0; k < num_new.length; k++) {
-                    num_new[k] = decrement[k];
-                }
-                decrement = copy(num_new);
-            }
+        int index=1;
+        for(int i=0;i<num.length;i++){
+            sum += decrement[i]*index;
+            index *= 10;
         }
         return sum;
     }
