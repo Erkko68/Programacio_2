@@ -39,7 +39,6 @@ public class BigNaturals extends CommandLineProgram {
         return equal;
     }
     public int[] add(int[] num1, int[] num2) {
-        //Determine which number has the most digits
         int[] top = (num1.length >= num2.length) ? copy(num1) : copy(num2);
         int[] bot = (num1.length >= num2.length) ? copy(num2) : copy(num1);
         int j=0;
@@ -66,7 +65,6 @@ public class BigNaturals extends CommandLineProgram {
         }else{
             return sum;
         }
-
     }
 
     public int[] shiftLeft(int[] number, int positions) {
