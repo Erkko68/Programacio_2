@@ -25,10 +25,10 @@ public class BigNaturals extends CommandLineProgram {
     public boolean equals(int[] number1, int[] number2) {
         int i=0;
         boolean equal=true;
-        if(number1.length != number2.length){
+        if(number1.length != number2.length){           //check arrays lenght
             equal=false;
-        }else{
-            while(i<number1.length && equal){
+        }else{ 
+            while(i<number1.length && equal){           //check digit by digit
                 if(number1[i]==number2[i]){
                     i++;
                 }else{
@@ -39,7 +39,7 @@ public class BigNaturals extends CommandLineProgram {
         return equal;
     }
     public int[] add(int[] num1, int[] num2) {
-        int[] top = (num1.length >= num2.length) ? copy(num1) : copy(num2);
+        int[] top = (num1.length >= num2.length) ? copy(num1) : copy(num2); //sort by size
         int[] bot = (num1.length >= num2.length) ? copy(num2) : copy(num1);
         int j=0;
         int[] sum = new int[top.length+1];
@@ -56,7 +56,7 @@ public class BigNaturals extends CommandLineProgram {
                 bot[j]=0;
             }
         }
-        if(sum[top.length]==0){
+        if(sum[top.length]==0){                         //create a new array of the correct size
             int[] sum_final = new int[top.length];
             for(int i=0;i<top.length;i++){
                 sum_final[i]=sum[i];
@@ -71,11 +71,11 @@ public class BigNaturals extends CommandLineProgram {
         if (equals(number,zero())) {
             return zero();
         } else {
-            int[] shifted = new int[number.length + positions];
+            int[] shifted = new int[number.length + positions];         //fill with 0
             for (int i = 0; i < positions; i++) {
                 shifted[i] = 0;
             }
-            for (int j = 0; j < number.length; j++) {
+            for (int j = 0; j < number.length; j++) {                   //fill with number
                 shifted[j + positions] = number[j];
             }
             return shifted;
@@ -84,21 +84,21 @@ public class BigNaturals extends CommandLineProgram {
 
     public int[] multiplyByDigit(int[] number, int digit) {
         int[] multiplied = new int[]{0};
-        for(int i=0;i<digit;i++){
+        for(int i=0;i<digit;i++){                               //loop of add() function
             multiplied = add(multiplied,number);
         }
         return multiplied;
     }
 
     public int[] multiply(int[] number1, int[] number2) {
-        int[] top = (number1.length >= number2.length) ? copy(number1) : copy(number2);
+        int[] top = (number1.length >= number2.length) ? copy(number1) : copy(number2); //sort numbers
         int[] bot = (number1.length >= number2.length) ? copy(number2) : copy(number1);
         int[][] multiplied = new int[bot.length][];
-        for(int i=0;i<bot.length;i++){
+        for(int i=0;i<bot.length;i++){                              //multiply digit by digit and shifting one position every time it changes
             multiplied[i] = multiplyByDigit(top, bot[i]);
             multiplied[i] = shiftLeft(multiplied[i],i);
         }
-        int[] result = new int[]{0};
+        int[] result = new int[]{0};                                //sum final matrix into result array
         for (int[] ints : multiplied) {
             result = add(ints, result);
         }
@@ -107,7 +107,7 @@ public class BigNaturals extends CommandLineProgram {
 
     public int[] factorial(int[] number) {
         int[] factorial = new int[]{1};
-        for(int i=1;i<=arrayToInt(number);i++){
+        for(int i=1;i<=arrayToInt(number);i++){                 //multiply by the next number every time given by the number index
             factorial = multiplyByDigit(factorial,i);
         }
         return factorial;
@@ -125,7 +125,7 @@ public class BigNaturals extends CommandLineProgram {
         return fibonacci;
     }
 
-    public int arrayToInt(int[] num){
+    public int arrayToInt(int[] num){           //convert number as an array to an int
         int[] decrement = copy(num);
         int sum=0;
         int index=1;
@@ -136,7 +136,7 @@ public class BigNaturals extends CommandLineProgram {
         return sum;
     }
 
-    public int[] copy(int[] num){
+    public int[] copy(int[] num){               //simply copy the given array into another one
         int[] copied = new int[num.length];
         for(int i=0;i<num.length;i++){
             copied[i]=num[i];
