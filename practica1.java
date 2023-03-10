@@ -27,7 +27,7 @@ public class BigNaturals extends CommandLineProgram {
         boolean equal=true;
         if(number1.length != number2.length){           //check arrays lenght
             equal=false;
-        }else{ 
+        }else{
             while(i<number1.length && equal){           //check digit by digit
                 if(number1[i]==number2[i]){
                     i++;
@@ -106,36 +106,29 @@ public class BigNaturals extends CommandLineProgram {
     }
 
     public int[] factorial(int[] number) {
-        int[] factorial = new int[]{1};
-        for(int i=1;i<=arrayToInt(number);i++){                 //multiply by the next number every time given by the number index
-            factorial = multiplyByDigit(factorial,i);
+        int[] count = zero();
+        int[] factorial = one();
+        while(!equals(count, number)) {
+            count = add(count, one());
+            factorial = multiply(factorial, count);
         }
         return factorial;
     }
 
     public int[] fibonacci(int[] number) {
+        int[] count = zero();
         int[] prev = zero();
         int[] post = one();
-        int[] fibonacci = new int[]{0};
-        for(int i=0;i<arrayToInt(number);i++){
+        int[] fibonacci = zero();
+        while(!equals(count,number)){
             fibonacci = add(prev,post);
             post = copy(prev);
             prev = copy(fibonacci);
+            count = add(count, one());
         }
         return fibonacci;
     }
-
-    public int arrayToInt(int[] num){           //convert number as an array to an int
-        int[] decrement = copy(num);
-        int sum=0;
-        int index=1;
-        for(int i=0;i<num.length;i++){
-            sum += decrement[i]*index;
-            index *= 10;
-        }
-        return sum;
-    }
-
+    
     public int[] copy(int[] num){               //simply copy the given array into another one
         int[] copied = new int[num.length];
         for(int i=0;i<num.length;i++){
