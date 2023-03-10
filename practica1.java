@@ -83,7 +83,7 @@ public class BigNaturals extends CommandLineProgram {
     }
 
     public int[] multiplyByDigit(int[] number, int digit) {
-        int[] multiplied = new int[]{0};
+        int[] multiplied = zero();
         for(int i=0;i<digit;i++){                               //loop of add() function
             multiplied = add(multiplied,number);
         }
