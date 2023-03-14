@@ -14,10 +14,12 @@ import acm.program.CommandLineProgram;
 
 public class BigNaturals extends CommandLineProgram {
 
+    //Function that return an array of 0
     public int[] zero() {
         return new int[]{0};
     }
 
+    //Function that return an array of 1
     public int[] one() {
         return new int[]{1};
     }
@@ -25,7 +27,7 @@ public class BigNaturals extends CommandLineProgram {
     public boolean equals(int[] number1, int[] number2) {
         int i=0;
         boolean equal=true;
-        if(number1.length != number2.length){           //check arrays lenght
+        if(number1.length != number2.length){           //check arrays length
             equal=false;
         }else{
             while(i<number1.length && equal){           //check digit by digit
@@ -39,24 +41,25 @@ public class BigNaturals extends CommandLineProgram {
         return equal;
     }
     public int[] add(int[] num1, int[] num2) {
-        int[] top = (num1.length >= num2.length) ? copy(num1) : copy(num2); //sort by size
+        //set position on "top" or "bot" depending on the array size
+        int[] top = (num1.length >= num2.length) ? copy(num1) : copy(num2);
         int[] bot = (num1.length >= num2.length) ? copy(num2) : copy(num1);
-        int j=0;
-        int[] sum = new int[top.length+1];
+        int j=0; //index for "bot" number
+        int[] sum = new int[top.length+1]; //create result array
         for(int i=0;i<top.length;i++){
-            if(top[i]+bot[j]+sum[i]>9){
+            if(top[i]+bot[j]+sum[i]>9){         //check if there's carry
                 sum[i] += (top[i]+bot[j])-10;
                 sum[i+1]+=1;
             }else{
                 sum[i] += top[i]+bot[j];
             }
-            if(j<(bot.length-1)){
+            if(j<(bot.length-1)){           //increment "bot" position
                 j++;
-            }else if(j==(bot.length-1)){
+            }else if(j==(bot.length-1)){    //if it reaches the end set 0 to the last "bot" digit to continue with the sum
                 bot[j]=0;
             }
         }
-        if(sum[top.length]==0){                         //create a new array of the correct size
+        if(sum[top.length]==0){                         //if there is an extra 0 create a new array of the correct size
             int[] sum_final = new int[top.length];
             for(int i=0;i<top.length;i++){
                 sum_final[i]=sum[i];
@@ -83,7 +86,7 @@ public class BigNaturals extends CommandLineProgram {
     }
 
     public int[] multiplyByDigit(int[] number, int digit) {
-        int[] multiplied = zero();
+        int[] multiplied = new int[]{0};
         for(int i=0;i<digit;i++){                               //loop of add() function
             multiplied = add(multiplied,number);
         }
@@ -128,7 +131,7 @@ public class BigNaturals extends CommandLineProgram {
         }
         return fibonacci;
     }
-    
+
     public int[] copy(int[] num){               //simply copy the given array into another one
         int[] copied = new int[num.length];
         for(int i=0;i<num.length;i++){
